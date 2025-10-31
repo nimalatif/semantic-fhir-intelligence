@@ -7,7 +7,7 @@ Minimal FHIR → semantic graph mapper.
 - Builds a simple knowledge graph in memory (nodes + edges)
 - Emits:
     * graph dict  (portable JSON-serializable object)
-    * derived facts (very simple rules, e.g., fever if temperature > 38C)
+    * derived facts (toy rules: Fever if temp > 38C; Tachycardia if HR > 100 bpm)
 
 No external deps required. If `networkx` is available, you can export to a DiGraph.
 """
@@ -197,24 +197,30 @@ class SemanticMapper:
     # Simple derived facts (toy rules)
     # ------------------------
     def _derive_simple_facts(self) -> None:
+        """Run all toy rules."""
+        self._rule_fever_over_38C()
+        self._rule_tachycardia_over_100bpm()
+
+    def _rule_fever_over_38C(self) -> None:
         """
-        Example rule:
-        - If there's an Observation with LOINC 8310-5 (Body temperature) and value > 38 C,
-          assert a node 'Finding/Fever' and connect patient -> fever.
+        If there's an Observation with LOINC 8310-5 (Body temperature)
+        and value > 38 °C → assert 'Finding/Fever' connected to the Patient.
         """
-        # find all temperature observations
         temps = []
         for e in self.graph.edges:
             if e.rel == "HAS_CODE":
                 code_node = self.graph.nodes.get(e.dst)
-                if code_node and code_node.props.get("system") == "http://loinc.org" and code_node.props.get("code") == "8310-5":
+                if (
+                    code_node
+                    and code_node.props.get("system") == "http://loinc.org"
+                    and code_node.props.get("code") == "8310-5"
+                ):
                     obs = self.graph.nodes.get(e.src)
                     if obs and obs.type == "Observation":
                         temps.append(obs)
 
         for obs in temps:
-            # parse numeric temperature if possible
-            val = obs.props.get("value")  # e.g., "37.5 Celsius"
+            val = obs.props.get("value")  # e.g., "38.6 Celsius"
             try:
                 number = float(str(val).split()[0])
             except Exception:
@@ -223,15 +229,48 @@ class SemanticMapper:
             if number is not None and number > 38.0:
                 fever_id = "Finding/Fever"
                 self._add_node(fever_id, "Finding", {"label": "Fever"})
-                # connect fever to the patient subject of this observation
-                # find subject edge from obs
-                subj: Optional[str] = None
-                for e in self.graph.edges:
-                    if e.src == obs.id and e.rel == "HAS_SUBJECT":
-                        subj = e.dst
-                        break
+                subj = self._subject_of(obs.id)
                 if subj:
                     self._add_edge(subj, fever_id, "HAS_FINDING")
+
+    def _rule_tachycardia_over_100bpm(self) -> None:
+        """
+        If there's an Observation with LOINC 8867-4 (Heart rate)
+        and value > 100 bpm → assert 'Finding/Tachycardia' connected to the Patient.
+        """
+        hrs = []
+        for e in self.graph.edges:
+            if e.rel == "HAS_CODE":
+                code_node = self.graph.nodes.get(e.dst)
+                if (
+                    code_node
+                    and code_node.props.get("system") == "http://loinc.org"
+                    and code_node.props.get("code") == "8867-4"
+                ):
+                    obs = self.graph.nodes.get(e.src)
+                    if obs and obs.type == "Observation":
+                        hrs.append(obs)
+
+        for obs in hrs:
+            val = obs.props.get("value")  # e.g., "112 beats/minute"
+            try:
+                number = float(str(val).split()[0])
+            except Exception:
+                number = None
+
+            if number is not None and number > 100.0:
+                tachy_id = "Finding/Tachycardia"
+                self._add_node(tachy_id, "Finding", {"label": "Tachycardia"})
+                subj = self._subject_of(obs.id)
+                if subj:
+                    self._add_edge(subj, tachy_id, "HAS_FINDING")
+
+    # Helper to find the subject (Patient ref) of a resource by edges
+    def _subject_of(self, rid: str) -> Optional[str]:
+        for e in self.graph.edges:
+            if e.src == rid and e.rel == "HAS_SUBJECT":
+                return e.dst
+        return None
 
 # ----------------------------
 # Convenience CLI

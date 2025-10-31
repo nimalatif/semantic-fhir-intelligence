@@ -27,11 +27,36 @@
         "display": "Body temperature"
       }
     },
+    "Observation/obs2": {
+      "id": "Observation/obs2",
+      "type": "Observation",
+      "props": {
+        "code": "Heart rate",
+        "value": "112 beats/minute",
+        "status": "final"
+      }
+    },
+    "Code/http://loinc.org|8867-4": {
+      "id": "Code/http://loinc.org|8867-4",
+      "type": "Code",
+      "props": {
+        "system": "http://loinc.org",
+        "code": "8867-4",
+        "display": "Heart rate"
+      }
+    },
     "Finding/Fever": {
       "id": "Finding/Fever",
       "type": "Finding",
       "props": {
         "label": "Fever"
+      }
+    },
+    "Finding/Tachycardia": {
+      "id": "Finding/Tachycardia",
+      "type": "Finding",
+      "props": {
+        "label": "Tachycardia"
       }
     }
   },
@@ -47,8 +72,23 @@
       "rel": "HAS_CODE"
     },
     {
+      "src": "Observation/obs2",
+      "dst": "Patient/example",
+      "rel": "HAS_SUBJECT"
+    },
+    {
+      "src": "Observation/obs2",
+      "dst": "Code/http://loinc.org|8867-4",
+      "rel": "HAS_CODE"
+    },
+    {
       "src": "Patient/example",
       "dst": "Finding/Fever",
+      "rel": "HAS_FINDING"
+    },
+    {
+      "src": "Patient/example",
+      "dst": "Finding/Tachycardia",
       "rel": "HAS_FINDING"
     }
   ]
