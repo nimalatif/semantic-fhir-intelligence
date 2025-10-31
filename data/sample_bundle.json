@@ -23,6 +23,22 @@
         "valueQuantity": { "value": 38.5, "unit": "Celsius" },
         "subject": { "reference": "Patient/example" }
       }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs2",
+        "status": "final",
+        "code": {
+          "coding": [
+            { "system": "http://loinc.org", "code": "8867-4", "display": "Heart rate" }
+            ] ,
+                "text": "Heart rate"
+              },
+              "valueQuantity": { "value": 112, "unit": "beats/minute" },
+              "subject": { "reference": "Patient/example" }
+        }
     }
+
   ]
 }
