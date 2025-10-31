@@ -1,0 +1,55 @@
+{
+  "nodes": {
+    "Patient/example": {
+      "id": "Patient/example",
+      "type": "Patient",
+      "props": {
+        "gender": "male",
+        "birthDate": "1974-12-25",
+        "name": "John Smith"
+      }
+    },
+    "Observation/obs1": {
+      "id": "Observation/obs1",
+      "type": "Observation",
+      "props": {
+        "code": "Body temperature",
+        "value": "38.5 Celsius",
+        "status": "final"
+      }
+    },
+    "Code/http://loinc.org|8310-5": {
+      "id": "Code/http://loinc.org|8310-5",
+      "type": "Code",
+      "props": {
+        "system": "http://loinc.org",
+        "code": "8310-5",
+        "display": "Body temperature"
+      }
+    },
+    "Finding/Fever": {
+      "id": "Finding/Fever",
+      "type": "Finding",
+      "props": {
+        "label": "Fever"
+      }
+    }
+  },
+  "edges": [
+    {
+      "src": "Observation/obs1",
+      "dst": "Patient/example",
+      "rel": "HAS_SUBJECT"
+    },
+    {
+      "src": "Observation/obs1",
+      "dst": "Code/http://loinc.org|8310-5",
+      "rel": "HAS_CODE"
+    },
+    {
+      "src": "Patient/example",
+      "dst": "Finding/Fever",
+      "rel": "HAS_FINDING"
+    }
+  ]
+}

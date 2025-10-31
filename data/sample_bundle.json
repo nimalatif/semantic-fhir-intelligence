@@ -20,7 +20,7 @@
           "coding": [{ "system": "http://loinc.org", "code": "8310-5", "display": "Body temperature" }],
           "text": "Body temperature"
         },
-        "valueQuantity": { "value": 37.5, "unit": "Celsius" },
+        "valueQuantity": { "value": 38.5, "unit": "Celsius" },
         "subject": { "reference": "Patient/example" }
       }
     }
