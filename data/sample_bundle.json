@@ -2,11 +2,27 @@
   "resourceType": "Bundle",
   "type": "collection",
   "entry": [
-    { "resource": { "resourceType": "Patient", "id": "pat1", "name": [{ "text": "Test Patient" }] } },
-    { "resource": { "resourceType": "Encounter", "id": "enc1", "subject": { "reference": "Patient/pat1" }, "period": { "start": "2025-01-01T08:00:00Z" } } },
-    { "resource": { "resourceType": "Condition", "id": "cond-fever", "code": { "text": "Fever" }, "subject": { "reference": "Patient/pat1" } } },
-    { "resource": { "resourceType": "MedicationRequest", "id": "med-paracetamol", "medicationCodeableConcept": { "text": "Paracetamol 500 mg tablet" }, "subject": { "reference": "Patient/pat1" }, "encounter": { "reference": "Encounter/enc1" }, "reasonReference": [{ "reference": "Condition/cond-fever" }], "authoredOn": "2025-01-01T08:15:00Z" } },
-    { "resource": { "resourceType": "Observation", "id": "obs-temp-before", "code": { "text": "Body temperature" }, "valueQuantity": { "value": 38.5, "unit": "°C" }, "effectiveDateTime": "2025-01-01T08:10:00Z", "subject": { "reference": "Patient/pat1" } } },
-    { "resource": { "resourceType": "Observation", "id": "obs-temp-after",  "code": { "text": "Body temperature" }, "valueQuantity": { "value": 37.1, "unit": "°C" }, "effectiveDateTime": "2025-01-01T10:10:00Z", "subject": { "reference": "Patient/pat1" }, "derivedFrom": [{ "reference": "MedicationRequest/med-paracetamol" }] } }
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "example",
+        "name": [{ "family": "Smith", "given": ["John"] }],
+        "gender": "male",
+        "birthDate": "1974-12-25"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs1",
+        "status": "final",
+        "code": {
+          "coding": [{ "system": "http://loinc.org", "code": "8310-5", "display": "Body temperature" }],
+          "text": "Body temperature"
+        },
+        "valueQuantity": { "value": 37.5, "unit": "Celsius" },
+        "subject": { "reference": "Patient/example" }
+      }
+    }
   ]
 }
