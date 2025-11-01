@@ -153,3 +153,78 @@ Do **not** commit PHI or PII.
 ## License
 
 MIT (or your choice). Add a `LICENSE` file if you plan to open source.
+
+
+
+# 🧩 Project 2 , Collective Intelligence Graph for Healthcare
+
+**Goal:** Discover population-level clinical patterns by linking many FHIR-based semantic graphs into a single collective knowledge network.  
+
+Each patient’s FHIR Bundle becomes a small semantic graph (`Patient → Observations → Findings`).  
+Dozens of these graphs are merged to reveal which clinical concepts tend to appear together  for example, *Fever ↔ Tachycardia ↔ Low SpO₂.*
+
+---
+
+## ⚙️ How it works
+```bash
+python -m src.synth_data          # 1️⃣ generate synthetic patient Bundles
+python -m src.population_graph    # 2️⃣ aggregate into collective graph
+
+Input: multiple synthetic FHIR Bundles (data/bundles/)
+
+Process: uses semantic_mapper.py to extract key concepts and compute co-occurrence frequencies across patients
+
+Output:
+
+out/meta_graph.json → JSON graph
+
+out/cooccurrence.csv → CSV for Gephi / analysis
+
+out/meta_graph.png → optional NetworkX plot
+****
+Sample output:
+{
+  "nodes": {
+    "Finding/Fever": { "props": { "support": 28 } },
+    "Finding/Tachycardia": { "props": { "support": 24 } }
+  },
+  "edges": [
+    { "src": "Finding/Fever", "dst": "Finding/Tachycardia", "weight": 17 }
+  ]
+}
+****
+Architecture (Mermaid):
+flowchart LR
+  A[Many FHIR Bundles<br/>(data/bundles/)] --> B[Semantic Mapper<br/>(src/semantic_mapper.py)]
+  B --> C[Per-Patient Graphs<br/>Nodes: Patient, Findings, Codes]
+  C --> D[Population Aggregator<br/>(src/population_graph.py)]
+  D --> E[Collective Graph<br/>Edges: CO_OCCURS_WITH]
+  E --> F[Outputs<br/>meta_graph.json / cooccurrence.csv / meta_graph.png]
+  F --> G[Insights<br/>"Fever ↔ Tachycardia ↔ Low SpO₂"]
+
+
+!!!!!!!Why it matters!!!!!
+
+Healthcare records store facts but rarely relationships.
+This project turns distributed patient data into a semantic network of evidence , revealing population-level trends without black-box models.
+It’s symbolic AI + graph analytics → transparent, trustworthy clinical insights.
+
+*****Roadmap:
+
+ Expand rule engine (Hypertension, Hypoxia)
+
+ Weight edges by time / severity
+
+ Graph embeddings (Node2Vec / GraphSAGE)
+
+ FHIR server / Spark integration
+
+
+Plain English example
+
+“Across 60 synthetic patients, Fever and Tachycardia co-occurred 17 times (28%).
+Low SpO₂ appeared with Fever in 9 cases.”
+
+Every statement is traceable to explicit nodes and edges , explainability by design.
+
+
