@@ -1,0 +1,70 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "p48",
+        "gender": "female",
+        "birthDate": "1968-01-01",
+        "name": [
+          {
+            "family": "Doe",
+            "given": [
+              "Pat48"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs_temp_48",
+        "status": "final",
+        "code": {
+          "text": "Body temperature",
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8310-5",
+              "display": "Body temperature"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/p48"
+        },
+        "valueQuantity": {
+          "value": 39.0,
+          "unit": "Celsius"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs_hr_48",
+        "status": "final",
+        "code": {
+          "text": "Heart rate",
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/p48"
+        },
+        "valueQuantity": {
+          "value": 117,
+          "unit": "beats/minute"
+        }
+      }
+    }
+  ]
+}

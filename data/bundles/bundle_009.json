@@ -1,0 +1,94 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "p9",
+        "gender": "male",
+        "birthDate": "1993-01-01",
+        "name": [
+          {
+            "family": "Doe",
+            "given": [
+              "Pat9"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs_temp_9",
+        "status": "final",
+        "code": {
+          "text": "Body temperature",
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8310-5",
+              "display": "Body temperature"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/p9"
+        },
+        "valueQuantity": {
+          "value": 38.4,
+          "unit": "Celsius"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs_hr_9",
+        "status": "final",
+        "code": {
+          "text": "Heart rate",
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/p9"
+        },
+        "valueQuantity": {
+          "value": 116,
+          "unit": "beats/minute"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs_spo2_9",
+        "status": "final",
+        "code": {
+          "text": "Oxygen saturation",
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "59408-5",
+              "display": "Oxygen saturation in Arterial blood by Pulse oximetry"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/p9"
+        },
+        "valueQuantity": {
+          "value": 97,
+          "unit": "%"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "p45",
+        "gender": "male",
+        "birthDate": "1981-01-01",
+        "name": [
+          {
+            "family": "Doe",
+            "given": [
+              "Pat45"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs_temp_45",
+        "status": "final",
+        "code": {
+          "text": "Body temperature",
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8310-5",
+              "display": "Body temperature"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/p45"
+        },
+        "valueQuantity": {
+          "value": 37.0,
+          "unit": "Celsius"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs_hr_45",
+        "status": "final",
+        "code": {
+          "text": "Heart rate",
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/p45"
+        },
+        "valueQuantity": {
+          "value": 80,
+          "unit": "beats/minute"
+        }
+      }
+    }
+  ]
+}
