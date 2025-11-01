@@ -1,0 +1,101 @@
+{
+  "nodes": {
+    "Code/http://loinc.org|8310-5": {
+      "id": "Code/http://loinc.org|8310-5",
+      "type": "Concept",
+      "props": {
+        "support": 60
+      }
+    },
+    "Finding/Tachycardia": {
+      "id": "Finding/Tachycardia",
+      "type": "Concept",
+      "props": {
+        "support": 38
+      }
+    },
+    "Code/http://loinc.org|59408-5": {
+      "id": "Code/http://loinc.org|59408-5",
+      "type": "Concept",
+      "props": {
+        "support": 41
+      }
+    },
+    "Finding/Fever": {
+      "id": "Finding/Fever",
+      "type": "Concept",
+      "props": {
+        "support": 38
+      }
+    },
+    "Code/http://loinc.org|8867-4": {
+      "id": "Code/http://loinc.org|8867-4",
+      "type": "Concept",
+      "props": {
+        "support": 60
+      }
+    }
+  },
+  "edges": [
+    {
+      "src": "Code/http://loinc.org|8310-5",
+      "dst": "Code/http://loinc.org|8867-4",
+      "rel": "CO_OCCURS_WITH",
+      "weight": 60
+    },
+    {
+      "src": "Code/http://loinc.org|59408-5",
+      "dst": "Code/http://loinc.org|8310-5",
+      "rel": "CO_OCCURS_WITH",
+      "weight": 41
+    },
+    {
+      "src": "Code/http://loinc.org|59408-5",
+      "dst": "Code/http://loinc.org|8867-4",
+      "rel": "CO_OCCURS_WITH",
+      "weight": 41
+    },
+    {
+      "src": "Code/http://loinc.org|8310-5",
+      "dst": "Finding/Fever",
+      "rel": "CO_OCCURS_WITH",
+      "weight": 38
+    },
+    {
+      "src": "Code/http://loinc.org|8310-5",
+      "dst": "Finding/Tachycardia",
+      "rel": "CO_OCCURS_WITH",
+      "weight": 38
+    },
+    {
+      "src": "Code/http://loinc.org|8867-4",
+      "dst": "Finding/Fever",
+      "rel": "CO_OCCURS_WITH",
+      "weight": 38
+    },
+    {
+      "src": "Code/http://loinc.org|8867-4",
+      "dst": "Finding/Tachycardia",
+      "rel": "CO_OCCURS_WITH",
+      "weight": 38
+    },
+    {
+      "src": "Finding/Fever",
+      "dst": "Finding/Tachycardia",
+      "rel": "CO_OCCURS_WITH",
+      "weight": 31
+    },
+    {
+      "src": "Code/http://loinc.org|59408-5",
+      "dst": "Finding/Fever",
+      "rel": "CO_OCCURS_WITH",
+      "weight": 27
+    },
+    {
+      "src": "Code/http://loinc.org|59408-5",
+      "dst": "Finding/Tachycardia",
+      "rel": "CO_OCCURS_WITH",
+      "weight": 27
+    }
+  ]
+}

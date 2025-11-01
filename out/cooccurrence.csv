@@ -1,0 +1,11 @@
+source,target,weight
+Code/http://loinc.org|8310-5,Code/http://loinc.org|8867-4,60
+Code/http://loinc.org|59408-5,Code/http://loinc.org|8310-5,41
+Code/http://loinc.org|59408-5,Code/http://loinc.org|8867-4,41
+Code/http://loinc.org|8310-5,Finding/Fever,38
+Code/http://loinc.org|8310-5,Finding/Tachycardia,38
+Code/http://loinc.org|8867-4,Finding/Fever,38
+Code/http://loinc.org|8867-4,Finding/Tachycardia,38
+Finding/Fever,Finding/Tachycardia,31
+Code/http://loinc.org|59408-5,Finding/Fever,27
+Code/http://loinc.org|59408-5,Finding/Tachycardia,27
